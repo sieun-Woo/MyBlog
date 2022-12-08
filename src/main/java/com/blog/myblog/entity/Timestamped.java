@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Timestamped {
-
     @CreatedDate
     private LocalDateTime createdAt;
 
