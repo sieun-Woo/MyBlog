@@ -1,5 +1,6 @@
 package com.blog.myblog.repository;
 
+import com.blog.myblog.dto.PostRequestDto;
 import com.blog.myblog.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 

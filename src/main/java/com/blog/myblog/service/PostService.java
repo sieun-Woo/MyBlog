@@ -1,12 +1,14 @@
 package com.blog.myblog.service;
 
 import com.blog.myblog.dto.PostRequestDto;
+import com.blog.myblog.dto.PostResponseDto;
 import com.blog.myblog.entity.Post;
 import com.blog.myblog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,24 +18,29 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Post createPost(PostRequestDto requestDto) {
+    public PostResponseDto createPost(PostRequestDto requestDto) {
         Post post = new Post(requestDto);
         postRepository.save(post);
-        return post;
+        return new PostResponseDto(post);
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPost() {
-        return postRepository.findAllByOrderByModifiedAtDesc();
+    public ArrayList<PostResponseDto> getPost() {
+        ArrayList<PostResponseDto> PostResponseDtoList = new ArrayList<>();
+        for(Post post : postRepository.findAllByOrderByModifiedAtDesc()) {
+            PostResponseDto postResponseDto = new PostResponseDto(post);
+            PostResponseDtoList.add(postResponseDto);
+        }
+        return PostResponseDtoList;
     }
 
     @Transactional(readOnly = true)
-    public Post getPostById(Long id) {
-        return postRepository.findPostById(id);
+    public PostResponseDto getPostById(Long id) {
+        return new PostResponseDto(postRepository.findPostById(id));
     }
 
     @Transactional
-    public Post updatePost(Long id, PostRequestDto requestDto) {
+    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         Post post = postRepository.findPostById(id);
         if(!post.getPassword().equals(requestDto.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
@@ -42,7 +49,7 @@ public class PostService {
         return getPostById(id);
     }
 
-
+    @Transactional
     public String deletePost(Long id, PostRequestDto requestDto) {
         Post post = postRepository.findPostById(id);
         if(!post.getPassword().equals(requestDto.getPassword())){
