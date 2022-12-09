@@ -12,10 +12,4 @@ public class PostRequestDto {
     private String title;
     private String contents;
 
-    public PostRequestDto(Post post) {
-        this.password = post.getPassword();
-        this.username = post.getUsername();
-        this.title  = post.getTitle();
-        this.contents = post.getContents();
-    }
 }
