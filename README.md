@@ -1,6 +1,10 @@
 # MyBlog
 Spring 입문 주차 개인 과제
 
+**MyBlog Use Case**
+
+![MyBlog Use Case](https://user-images.githubusercontent.com/116184724/206613841-d38511bb-fd1a-4c41-b7bb-58832f73c559.png)
+
 **API 명세서**
 |Method|URL|Description|Request|Response|
 |-|-|-|-|-|
